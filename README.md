@@ -11,7 +11,8 @@
 
  3. Вносим OU
 ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/c78bb74d-3180-4516-a0b6-478936a150be)
-можно посмотреть в папке с пользователями в AD
+
+OU можно посмотреть в папке с пользователями в AD
 
 4. Вносим список пользователей, которых нужно добавить ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/7987d884-fd9c-43c9-9472-aad97e6434ca)
 и нажимаем СОЗДАТЬ
