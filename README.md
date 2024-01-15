@@ -20,7 +20,8 @@ OU можно посмотреть в папке с пользователями
 
 4. Вносим список пользователей, которых нужно добавить
    
- ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/7987d884-fd9c-43c9-9472-aad97e6434ca)
+![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/07bef3e4-6c64-4772-ada8-bafc8cf79808)
+
 
 и нажимаем СОЗДАТЬ
 
