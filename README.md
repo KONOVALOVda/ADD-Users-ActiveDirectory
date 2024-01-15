@@ -4,7 +4,7 @@
 Чтобы воспользоваться программой достаточно перейти на сайт - https://tkachukds.github.io/AD-User-Importer/
 
 Инструкция:
-1. Вносим данные вашего домена в AD "A3f.local", "BB.ru"
+1. Вносим данные вашего домена Aсtive Directory "A3f.local", "BB.ru"
    
 ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/42c38fea-4fb5-49a1-86ef-44ac91fba990)
 
