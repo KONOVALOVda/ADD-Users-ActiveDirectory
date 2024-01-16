@@ -5,39 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Генератор пользователей Active Directory by Tkachuk</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #000;
+    color: #fff;
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
+label {
+    display: block;
+    margin-bottom: 5px;
+}
 
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #fff; /* Цвет текста внутри инпутов и текстэрий */
+    background-color: #000; /* Цвет фона внутри инпутов и текстэрий */
+}
 
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+button:hover {
+    background-color: #45a049;
+}
 
-        #result-code {
-            height: 200px;
-        }
+#result-code {
+    height: 200px;
+}
     </style>
 </head>
 <body>
@@ -52,7 +56,10 @@
 
     <button onclick="generateUsers()">Создать</button>
 
-    <label for="user-list">Список сотрудников: (Новый пользователь с новой строки. Формат: Ткачук Денис Сергеевич (можно без отчества) или можно добавить должность через ТЕРЕ: Ткачук Денис Сергеевич – DevOps инженер)</label>
+    <label for="user-list">Список сотрудников:</label>
+    <label for="user-list">Новый пользователь с новой строки.</label>
+    <label for="user-list">Формат: Фамилия Имя Отчество (отчество не обязательно).</label>
+    <label for="user-list">Можно добавить должность через ТЕРЕ: Ткачук Денис Сергеевич – DevOps инженер</label>
     <textarea id="user-list" placeholder="Список пользователей"></textarea>
 
     <label for="result-code">Готовый код:</label>
