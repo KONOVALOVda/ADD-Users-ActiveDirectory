@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор пользователей Active Directory by Tkachuk</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #000;
+    color: #fff;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #000; /* Цвет текста внутри инпутов и текстэрий */
+    background-color: #fff; /* Цвет фона внутри инпутов и текстэрий */
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result-code {
+    height: 200px;
+    color: #000; /* Цвет текста внутри результата */
+    background-color: #fff; /* Цвет фона внутри результата */
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #000; /* Цвет текста внутри текстэрии */
+    background-color: #fff; /* Цвет фона внутри текстэрии */
+    border: 1px solid #000; /* Добавим темный бордер */
+}
+    </style>
+</head>
+<body>
+    <h1>Генератор пользователей Active Directory</h1>
+    <h3 style="opacity: 0.5;">by Tkachuk</h3>
+    <label for="company-name-input">Домен AD: (ваш домен)</label>
+    <input type="text" id="company-name-input" value="A3F.local">
+    <label for="password">Пароли для всех: (пользователь будет обязан его сменить при первом входе)</label>
+    <input type="text" id="password" value="123456789">
+    <label for="ou">OU: ( OU=IT,OU=office-users,DC=A3F,DC=local )</label>
+    <input type="text" id="ou" placeholder="Введите OU">
+
+    <button onclick="generateUsers()">Создать</button>
+
+    <label for="user-list">Список сотрудников: (Новый пользователь с новой строки. Формат: Ткачук Денис Сергеевич (можно без отчества) или можно добавить должность через ТЕРЕ: Ткачук Денис Сергеевич – DevOps инженер)</label>
+    <textarea id="user-list" placeholder="Список пользователей" style="color: #000; background-color: #fff; border: 1px solid #000;"></textarea>
+
+    <label for="result-code">Готовый код:</label>
+    <textarea id="result-code" readonly></textarea>
+
+    <script>
+
+function createPS1File(resultCode) {
+    // Создаем Blob из кода resultCode с кодировкой UTF-8
+    var blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), resultCode], { type: 'text/plain;charset=utf-8' });
+
+    // Создаем ссылку для скачивания
+    var downloadLink = document.createElement('a');
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = 'addusers.ps1';
+
+    // Эмулируем клик для скачивания файла
+    downloadLink.click();
+
+    // Очищаем URL и удаляем элемент ссылки
+    window.URL.revokeObjectURL(downloadLink.href);
+    downloadLink.remove();
+}
+
+function translit(word){
+	var answer = '';
+	var converter = {
+		'а': 'a',    'б': 'b',    'в': 'v',    'г': 'g',    'д': 'd',
+		'е': 'e',    'ё': 'e',    'ж': 'zh',   'з': 'z',    'и': 'i',
+		'й': 'y',    'к': 'k',    'л': 'l',    'м': 'm',    'н': 'n',
+		'о': 'o',    'п': 'p',    'р': 'r',    'с': 's',    'т': 't',
+		'у': 'u',    'ф': 'f',    'х': 'h',    'ц': 'c',    'ч': 'ch',
+		'ш': 'sh',   'щ': 'sch',  'ь': '',     'ы': 'y',    'ъ': '',
+		'э': 'e',    'ю': 'u',   'я': 'ya',
+ 
+		'А': 'A',    'Б': 'B',    'В': 'V',    'Г': 'G',    'Д': 'D',
+		'Е': 'E',    'Ё': 'E',    'Ж': 'Zh',   'З': 'Z',    'И': 'I',
+		'Й': 'Y',    'К': 'K',    'Л': 'L',    'М': 'M',    'Н': 'N',
+		'О': 'O',    'П': 'P',    'Р': 'R',    'С': 'S',    'Т': 'T',
+		'У': 'U',    'Ф': 'F',    'Х': 'H',    'Ц': 'C',    'Ч': 'Ch',
+		'Ш': 'Sh',   'Щ': 'Sch',  'Ь': '',     'Ы': 'Y',    'Ъ': '',
+		'Э': 'E',    'Ю': 'U',   'Я': 'Ya'
+	};
+ 
+	for (var i = 0; i < word.length; ++i ) {
+		if (converter[word[i]] == undefined){
+			answer += word[i];
+		} else {
+			answer += converter[word[i]];
+		}
+	}
+ 
+	return answer;
+}
+
+function generateUsers() {
+    var ou = document.getElementById('ou').value;
+    var userList = document.getElementById('user-list').value;
+    var namecompany = document.getElementById('company-name-input').value;
+    var password = document.getElementById('password').value;
+
+    // Разделение списка сотрудников на строки
+    var userLines = userList.split('\n').filter(Boolean);
+
+    // Создание кода для каждого сотрудника
+    var resultCode = "";
+
+    userLines.forEach(function(line) {
+        // Разделение строки на имя, фамилию и должность
+        var parts = line.split(/ \- | \– | \— /);
+        if (parts.length >= 1) {
+            var fullName = parts[0].trim();
+            var position = parts.length > 1 ? parts[1].trim() : "";
+
+            // Создание логина (простой вариант: первая буква имени + фамилия)
+            var login = fullName.split(' ')[1] ? (fullName.split(' ')[1].charAt(0).toLowerCase() + "." + fullName.split(' ')[0].toLowerCase()) : "";
+            var loginTR = login ? translit(login).toLowerCase() : "";
+            
+            // Генерация кода для создания пользователя
+            var userCode = `New-ADUser -Name "${fullName}" -GivenName "${fullName.split(' ')[1]}" -Surname "${fullName.split(' ')[0]}" -SamAccountName "${loginTR}" -UserPrincipalName "${loginTR}@${namecompany}" -Enabled $true -AccountPassword (ConvertTo-SecureString -AsPlainText "${password}" -Force) -Path "${ou}" -ChangePasswordAtLogon $true`;
+            
+            if (position) {
+                userCode += ` -Title "${position}"`;
+            }
+
+            resultCode += userCode + "\n";
+        }
+    });
+
+    document.getElementById('result-code').value = resultCode;
+    createPS1File(resultCode);
+}
+</script>
+</body>
+</html>
