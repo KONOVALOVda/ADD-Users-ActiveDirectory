@@ -6,7 +6,8 @@
 Инструкция:
 1. Вносим данные вашего домена Aсtive Directory "A3f.local", "BB.ru" и т.п.
    
-![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/42c38fea-4fb5-49a1-86ef-44ac91fba990)
+![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/7bb8846d-ed2c-4443-9816-72da9c665969)
+
 
 2. Можно изменить стандартный пароль от всех пользователей. ВНИМАНИЕ: Как только пользователь войдет, он будет обязан сменить пароль. Поэтому ставить сложный пароль не имеет смысла.
 
