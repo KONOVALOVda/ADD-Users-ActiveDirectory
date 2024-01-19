@@ -47,26 +47,44 @@ button:hover {
 </head>
 <body>
     <h1>Генератор пользователей Active Directory</h1>
-    <h3 style="opacity: 0.5;">by Tkachuk</h3>
-    <label for="company-name-input">Домен AD: (ваш домен)</label>
+    <h3 style="opacity: 0.5;">by TkachukDS</h3>
+    <label for="company-name-input">Домен AD: (ваш домен active directory)</label>
     <input type="text" id="company-name-input" value="A3F.local">
     <label for="password">Пароли для всех: (пользователь будет обязан его сменить при первом входе)</label>
     <input type="text" id="password" value="123456789">
-    <label for="ou">OU: ( OU=IT,OU=office-users,DC=A3F,DC=local )</label>
-    <input type="text" id="ou" placeholder="Введите OU">
+    <label for="folder-path-input">Путь до папки (куда создать пользователей): пример: office-users/IT</label>
+<input type="text" id="folder-path-input" placeholder="Введите путь до папки" oninput="updateOU()">
+    <label for="ou">OU (создается АВТОМАТИЧЕСКИ, но можно менять вручную)</label>
+    <label for="ou">пример: OU=IT,OU=office-users,DC=A3F,DC=local</label>
+    <input type="text" id="ou" placeholder="OU">
 
     <button onclick="generateUsers()">Создать</button>
 
     <label for="user-list">Список сотрудников:</label>
     <label for="user-list">Новый пользователь с новой строки.</label>
-    <label for="user-list">Формат: Фамилия Имя Отчество (отчество не обязательно).</label>
-    <label for="user-list">Можно добавить должность через ТЕРЕ: Ткачук Денис Сергеевич – DevOps инженер</label>
+    <label for="user-list">Формат: Фамилия Имя Отчество (Отчество не обязательно).</label>
+    <label for="user-list">Можно добавить должность через тере. пример: Ткачук Денис Сергеевич – DevOps инженер</label>
     <textarea id="user-list" placeholder="Список пользователей"></textarea>
 
-    <label for="result-code">Готовый код:</label>
+    <label for="result-code">Готовый код (для провери):</label>
     <textarea id="result-code" readonly></textarea>
 
     <script>
+function updateOU() {
+    var folderPath = document.getElementById('folder-path-input').value;
+    var domain = document.getElementById('company-name-input').value;
+
+    // Разворачиваем путь
+    var reversedPath = folderPath.split('/').reverse();
+
+    // Генерация OU-строки
+    var ouString = reversedPath.map(folder => `OU=${folder}`).join(',');
+
+    // Добавляем домен в конец OU
+    ouString += `,DC=${domain.replace(/\./g, ',DC=')}`;
+
+    document.getElementById('ou').value = ouString;
+}
 
 function createPS1File(resultCode) {
     // Создаем Blob из кода resultCode с кодировкой UTF-8
