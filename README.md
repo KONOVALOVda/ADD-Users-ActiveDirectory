@@ -7,6 +7,7 @@
 1. Вносим данные вашего домена Aсtive Directory "A3f.local", "BB.ru" и т.п.
    
 ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/7bb8846d-ed2c-4443-9816-72da9c665969)
+
 ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/e39d6f10-4845-43b5-bdc9-c24e56c1c3c7)
 
 
