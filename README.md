@@ -12,11 +12,18 @@
 
 ![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/34b29db5-eb6f-4f05-8d03-2c5a7dcefcff)
 
- 3. Вносим OU
-    
-![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/c78bb74d-3180-4516-a0b6-478936a150be)
+ 3. Вносим путь до папки куда создать пользователей.
+![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/910578f0-0e9b-4407-9abb-aa1344c9684c)
 
-OU - это путь до папки куда нужно сохранить пользователей. Нужно вносить в обрвтно порядке. Например: Путь до папки у меня такой: A3F.local/office-users/IT, значит нужно указать : OU=IT,OU=office-users,DC=A3F,DC=local. Также OU можно посмотреть в папке с пользователями в AD
+office-users/IT в AD выглядить так - 
+![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/eb9b38f4-d3c7-464f-ad91-ba354dfc3aaf)
+
+ВНИМАНИЕ:Автоматически(!) будет создан путь OU.
+Менять ничего не нужно.    
+
+но если хотите вручную внести:
+OU - это путь до папки куда нужно сохранить пользователей. Нужно вносить в обрвтно порядке. Например:
+Путь до папки у меня такой: A3F.local/office-users/IT, значит нужно указать : OU=IT,OU=office-users,DC=A3F,DC=local. 
 
 4. Вносим список пользователей, которых нужно добавить
    
