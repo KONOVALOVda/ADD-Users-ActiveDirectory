@@ -16,7 +16,8 @@
 
  ВНИМАНИЕ: Как только пользователь войдет, он будет обязан сменить пароль. Поэтому ставить сложный пароль не имеет смысла.
 
-![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/34b29db5-eb6f-4f05-8d03-2c5a7dcefcff)
+![image](https://github.com/tkachukds/AD-User-Importer/assets/103854079/c11198d6-5516-4fad-9507-75fb57bd0175)
+
 
  3. Вносим путь до папки куда создать пользователей.
 
