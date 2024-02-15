@@ -1,7 +1,7 @@
 <h1>Массовое добавление сотрудников списком в домен Active Directory.</h1>
 
 
-Чтобы воспользоваться программой достаточно перейти на сайт - https://tkachukds.github.io/AD-User-Importer/
+Чтобы воспользоваться программой достаточно перейти на сайт - [https://tkachukds.github.io/AD-User-Importer/](https://tkachukds.github.io/ADD-Users-ActiveDirectory/)
 
 Инструкция:
 1. Вносим данные вашего домена Aсtive Directory "A3f.local", "BB.ru" и т.п.
